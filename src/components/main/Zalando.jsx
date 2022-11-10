@@ -1,11 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./zalando.scss";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function Zalando() {
   const [products, setProducts] = useState([]);
   const [start, setStart] = useState(10);
   const [options, setOptions] = useState([]);
+  const [currentBrand, setCurrentBrand] = useState(false, "Alle");
+  const [currentCategory, setCurrentCategory] = useState([false, "Alle"]);
 
   const url = "https://tdmwbheqhsnbtuazcowv.supabase.co/rest/v1/zalando?";
   const headers = {
@@ -19,30 +23,81 @@ function Zalando() {
 
   /* -----  Filter Product List ----- */
 
-  const filterProducts = (value) => {
-    console.log(value);
-    setStart(() => 10);
+  const filterProducts = (value, brandORcate) => {
     setProducts((old) => (old = options));
 
-    setProducts((product) =>
-      product.filter((item) => {
-        if (value === item.brand) {
-          if (item.brand == "Alle") {
+
+    if (currentBrand[0] === true && brandORcate === "category") {
+      console.log("Brand is selected and now category");
+      setProducts((old) => (old = options));
+      setProducts((product) =>
+        product.filter((item) => {
+          if (value == "Alle") {
+            return item.brand == currentBrand[1]; 
+          }
+          return item.brand == currentBrand[1] && item.category == value;
+        })
+      );
+      console.log(products)
+    } else if (currentCategory[0] === true && brandORcate === "brand") {
+      console.log("category is selected and now brand");
+      setProducts((old) => (old = options));
+      setProducts((product) =>
+        product.filter((item) => {
+          if(value == "Alle"){
+            return item.category == currentCategory[1];
+          }
+            return item.category == currentCategory[1] && item.brand == value;
+        })
+      );
+
+    } else if (currentCategory[0] === false && brandORcate === "brand") {
+      console.log("Category is not selected");
+      setProducts((product) =>
+        product.filter((item) => {
+          if (value == "Alle") {
             return item.brand;
-          } else if (item.brand == value) {
+          } else {
             return item.brand == value;
           }
-        } else if (value === item.category) {
-          if (item.category == "Alle") {
+        })
+      );
+    } else /* if (currentCategory[0] === false && brandORcate === "category") */ {
+      console.log("Brand is not selected");
+      setProducts((product) =>
+        product.filter((item) => {
+          if (value == "Alle") {
             return item.category;
-          } else if (item.category == value) {
+          } else {
             return item.category == value;
           }
-        }
-      })
-    );
+        })
+      );
+    } 
 
-    console.log(products);
+    /*setStart(() => 10);
+      setProducts((old) => (old = options));
+
+      setProducts((product) =>
+        product.filter((item) => {
+          if (brandORcate == "brand") {
+            if (value == "Alle") {
+              console.log(value + "   this is the Alle Value");
+              return item.brand;
+            } else if (item.brand == value) {
+              return item.brand == value;
+            }
+          } else if (brandORcate == "category") {
+            if (value == "Alle") {
+              console.log("category");
+              return item.category;
+            } else if (item.category == value) {
+              return item.category == value;
+            }
+          }
+        })
+      ); */
+    console.log(products, value);
   };
   /* ----- Get API Data ----- */
 
@@ -66,6 +121,8 @@ function Zalando() {
   let category = [];
 
   options.forEach((e, i) => {
+    if (e.brand === null) {
+    }
     brand.push(e.brand);
     category.push(e.category);
   });
@@ -80,7 +137,14 @@ function Zalando() {
         <select
           defaultValue="Alle"
           onChange={(e) => {
-            filterProducts(e.target.value);
+            {
+              if (e.target.value == "Alle") {
+                setCurrentCategory(() => [false, "Alle"]);
+              } else {
+                setCurrentCategory(() => [true, e.target.value]);
+              }
+            }
+            filterProducts(e.target.value, "category");
           }}
         >
           <option value="Alle"> Alle</option>
@@ -92,7 +156,12 @@ function Zalando() {
         <select
           defaultValue="Alle"
           onChange={(e) => {
-            filterProducts(e.target.value);
+            if (e.target.value == "Alle") {
+              setCurrentBrand(() => [false, "Alle"]);
+            } else {
+              setCurrentBrand(() => [true, e.target.value]);
+            }
+            filterProducts(e.target.value, "brand");
           }}
         >
           <option value="Alle">Alle</option>
@@ -107,8 +176,8 @@ function Zalando() {
           .sort()
           .map((product) => (
             <article key={product.webScraperOrder} className="productCard">
-              <img src={product.image} alt="" />
-              <p>{product.name}</p>
+              <img src={product.image || <Skeleton />} alt="" />
+              <h3>{product.name || <Skeleton />}</h3>
               <p>{product.brand}</p>
               <p>{product.price}</p>
             </article>

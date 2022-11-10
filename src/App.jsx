@@ -14,7 +14,7 @@ function App() {
     setPage((oldpage) => (oldpage = id));
   }
 
-  let component = <Homepage />;
+  let component = <Zalando />;
 
   if (page === "Login Form") {
     component = <SwitchLogin />;
