@@ -1,0 +1,51 @@
+.formfield {
+  display: grid;
+  justify-items: center;
+  div {
+    max-width: 46ch !important;
+  }
+  label {
+    max-width: 46ch !important;
+  }
+}
+
+section {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    max-width: 98% !important;
+  }
+  svg {
+    width: 50px;
+    height: 50px;
+    fill: purple;
+  }
+}
+.aLinks {
+  display: flex;
+  max-width: 46ch;
+  justify-content: space-between;
+}
+.aLinksRegi {
+  display: flex;
+  max-width: 46ch;
+  justify-content: flex-end;
+}
+
+.names {
+  display: flex;
+  gap: 1rem;
+  div {
+    max-width: 22ch !important;
+  }
+}
+
+.css-xn6ruc>:not(style) {
+    margin: 8px;
+    max-width: 46ch !important;
+    min-width: 32ch !important;
+
+}
