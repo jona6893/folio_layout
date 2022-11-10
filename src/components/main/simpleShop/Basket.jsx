@@ -1,14 +1,19 @@
-import React from 'react'
+import React from "react";
 
-function Basket() {
-  return <section className="Basket ">
-    <ul>
-        <li>Some Product x3 - price</li>
-    </ul>
-    <button>Buy Now</button>
-
-
-  </section>;
+function Basket(props) {
+  return (
+    <section className="Basket ">
+      <ul>
+        {props.cart.map((item) => (
+          <>
+            <li>{item.productdisplayname}</li>
+            <li>{"Quantity: "}{item.amount}</li>
+          </>
+        ))}
+      </ul>
+      <button>Buy Now</button>
+    </section>
+  );
 }
 
-export default Basket
+export default Basket;
