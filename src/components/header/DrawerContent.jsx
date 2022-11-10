@@ -9,7 +9,8 @@ function DrawerContent(props) {
         "Login Form",
         "Zalando Api",
         "Forms",
-        "FormControlled",
+        "FormControlled",,
+        "Shop"
       ].map((btn) => (
         <ListItemButton
           key={btn}

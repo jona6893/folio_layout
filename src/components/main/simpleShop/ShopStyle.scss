@@ -1,0 +1,15 @@
+.Shop{
+    display: grid;
+    grid-template-columns: auto 250px;
+}
+.ProductsList{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+.Product{
+    background-color: #cfffcf;
+}
+.Basket{
+    background: rgb(255, 209, 209);
+}

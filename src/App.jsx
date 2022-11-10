@@ -6,7 +6,7 @@ import Homepage from "./components/main/Homepage";
 import SwitchLogin from "./components/login/SwitchLogin";
 import Forms from "./components/main/Forms";
 import FormControlled from "./components/main/FormControlled";
-
+import Shop from "./components/main/simpleShop/Shop";
 function App() {
   const [page, setPage] = useState("Homepage");
 
@@ -26,6 +26,8 @@ function App() {
     component = <Forms />;
   } else if (page === "FormControlled") {
     component = <FormControlled />;
+  } else if (page === "Shop") {
+    component = <Shop />;
   }
 
   return (
