@@ -6,7 +6,7 @@ import Homepage from "./components/main/Homepage";
 import SwitchLogin from "./components/login/SwitchLogin";
 import Forms from "./components/main/Forms";
 import FormControlled from "./components/main/FormControlled";
-import Shop from "./components/main/simpleShop/Shop";
+import SimpleShop from "./components/main/simpleShop/SimpleShop";
 function App() {
   const [page, setPage] = useState("Homepage");
 
@@ -14,7 +14,7 @@ function App() {
     setPage((oldpage) => (oldpage = id));
   }
 
-  let component = <Zalando />;
+  let component = <SimpleShop />;
 
   if (page === "Login Form") {
     component = <SwitchLogin />;
@@ -26,8 +26,8 @@ function App() {
     component = <Forms />;
   } else if (page === "FormControlled") {
     component = <FormControlled />;
-  } else if (page === "Shop") {
-    component = <Shop />;
+  } else if (page === "SimpleShop") {
+    component = <SimpleShop />;
   }
 
   return (
