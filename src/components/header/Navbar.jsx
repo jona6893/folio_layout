@@ -175,7 +175,7 @@ export default function Navbar(props) {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            
           </Typography>
           <Search>
             <SearchIconWrapper>

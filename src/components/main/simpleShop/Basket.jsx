@@ -1,14 +1,16 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import CheckoutForm from "./CheckoutForm";
+import { TaxContexts } from "./contexts/TaxContexts";
 
 function Basket(props) {
+  const taxes = useContext(TaxContexts);
   const [showForm, setShowForm] = useState(false);
 
   function getTotal() {
     let total = 0;
     props.cart.forEach((item) => {
-      total += item.amount * item.price;
+      total += item.amount * (item.price + item.price * taxes);
     });
     return total;
   }
@@ -18,10 +20,10 @@ function Basket(props) {
       <ul>
         {props.cart.map((item) => (
           <div key={item.id}>
-            <li >{item.productdisplayname}</li>
+            <li>{item.productdisplayname}</li>
             <li>Quantity: {item.amount}</li>
-            <li>Price: {item.price} DKK</li>
-            <button onClick={() => props.removeFromCart(item.id)}>X</button>
+            <li>Price: {item.price + item.price * taxes} DKK</li>
+            <button onClick={() => props.dispatch({type:"REMOVE", payload: {id:item.id} })}>X</button>
           </div>
         ))}
       </ul>
