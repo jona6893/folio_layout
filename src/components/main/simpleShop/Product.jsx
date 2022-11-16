@@ -20,7 +20,8 @@ export default function Product(props) {
           src={`https://kea-alt-del.dk/t7/images/webp/640/${props.data.id}.webp`}
           alt={props.data.productdisplayname}
         />
-        <button onClick={add}>Add to Basket</button>
+        <div className="btnContainer">
+        <button onClick={add}>Add to Basket</button></div>
       </article>
     </>
   );
